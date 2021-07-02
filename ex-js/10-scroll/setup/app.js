@@ -22,6 +22,49 @@ navToggle.addEventListener("click", () => {
   }
 });
 // ********** fixed navbar ************
-
+const navbar = document.getElementById("nav");
+const toplink = document.querySelector(".top-link");
+window.addEventListener("scroll", () => {
+  const scrollHeight = window.pageYOffset;
+  const navbarHeight = navbar.getBoundingClientRect().height;
+  if (scrollHeight > navbarHeight) {
+    navbar.classList.add("fixed-nav");
+  } else {
+    navbar.classList.remove("fixed-nav");
+  }
+  if (scrollHeight > 500) {
+    toplink.classList.add("show-link");
+  } else {
+    toplink.classList.remove("show-link");
+  }
+});
 // ********** smooth scroll ************
 // select links
+const scrollLinks = document.querySelectorAll(".scroll-link");
+
+scrollLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    // prevent default
+    e.preventDefault();
+    // navigate to specific spot
+    const id = e.currentTarget.getAttribute("href");
+    const element = document.querySelector(id);
+    // calculate the height
+    const navHeight = navbar.getBoundingClientRect().height;
+    const containerHeight = linksContainer.getBoundingClientRect().height;
+    const fixedNav = navbar.classList.contains("fixed-nav");
+    let position = element.offsetTop - navHeight;
+    if (!fixedNav) {
+      position = position - navHeight;
+    }
+
+    if (navHeight > 82) {
+      position = position + containerHeight;
+    }
+    window.scrollTo({
+      left: 0,
+      top: position,
+    });
+    linksContainer.style.height = 0;
+  });
+});
