@@ -1,7 +1,7 @@
 const btns = document.querySelectorAll(".tab-btn");
 const articles = document.querySelectorAll(".content");
 const about = document.querySelector(".about");
-
+// complete
 about.addEventListener("click", (e) => {
   const id = e.target.dataset.id;
   if (id) {
